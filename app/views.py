@@ -7,11 +7,15 @@ from app.models import Question
 def index(request):
     latest_question_list = Question.objects.order_by('-date')[:5]
     context = {'latest_question_list': latest_question_list}
-    return render(request, 'app/index.html', context)
+    return render(request, 'app/base.html', context)
 
 
 def detail(request, question_id):
-    return HttpResponse("You're looking at question %s." % question_id)
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404
+    return render(request, 'app/detail.html', {'question': question})
 
 
 def results(request, question_id):
