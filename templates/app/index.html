@@ -1,3 +1,6 @@
+{% extends "app/base.html" %}
+
+{%  comment %}
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -7,3 +10,63 @@
 {% else %}
     <p>No questions are available.</p>
 {% endif %}
+{% endcomment %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>New questions &nbsp;
+                <small><a href="#">Hot questions</a></small>
+            </h3>
+        </div>
+    </div>
+    <!-- /HEADER-->
+     <div class="row">
+        <div class="col-md-12 asks-q-cont">
+            {% for question in latest_question_list %}
+            <div class="row">
+                <div class="col-md-2">
+                    <img class="img-thumbnail" src="http://placehold.it/100x80" alt=""/>
+                </div>
+                <div class="col-md-10">
+                    <a href="/app/{{ question.id }}/">
+                        <p class="lead">
+                            <b>{{ question.title }}</b>
+                        </p>
+                    </a>
+
+                    <p>{{ question.text }}</p>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a href="">answer(3)</a>
+                        </div>
+                        <div class="col-md-10">
+                            Tags:
+                            <a href="#">
+                                <span class="label label-info">black-jack</span>
+                            </a>
+                            <a href="#">
+                                <span class="label label-danger">bender</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="pagination">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

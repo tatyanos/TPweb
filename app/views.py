@@ -7,7 +7,7 @@ from app.models import Question
 def index(request):
     latest_question_list = Question.objects.order_by('-date')[:5]
     context = {'latest_question_list': latest_question_list}
-    return render(request, 'app/base.html', context)
+    return render(request, 'app/index.html', context)
 
 
 def detail(request, question_id):
