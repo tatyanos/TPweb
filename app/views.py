@@ -3,12 +3,13 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpRespons
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
+from django.views.decorators.http import require_GET, require_POST
 
 from app.models import Question, Answer, User
 
 QUESTION_ON_PAGE = 10
 
-
+@require_GET
 def index_page(request, page_index, internal=False):
     page_index = int(page_index)
     if page_index == 0:
@@ -27,7 +28,7 @@ def index_page(request, page_index, internal=False):
     }
     return render(request, 'app/index.html', context)
 
-
+@require_GET
 def index(request):
     return index_page(request, 1, True)
 
@@ -42,7 +43,7 @@ def page_list(classname, page_index, on_page):
         page_end = max_page + 1
     return range(page_start, page_end)
 
-
+@require_GET
 def question(request, question_id):
     question_obj = get_object_or_404(Question, pk=question_id)
     answers_list = Answer.objects.filter(question=question_obj)
@@ -52,10 +53,12 @@ def question(request, question_id):
         'answers_list': answers_list
     })
 
+@require_GET
 @login_required
 def ask(request):
     return render(request, 'app/ask.html')
 
+@require_POST
 @login_required
 def ask_add(request):
     question_obj = Question(
@@ -65,6 +68,8 @@ def ask_add(request):
     question_obj.save()
     return HttpResponseRedirect(reverse('question', args=(question_obj.id,)))
 
+
+@require_POST
 @login_required
 def answer(request, question_id):
     question_obj = get_object_or_404(Question, pk=question_id)
@@ -75,17 +80,23 @@ def answer(request, question_id):
     answer_obj.save()
     return HttpResponseRedirect(reverse('question', args=(question_id,)))
 
+@require_GET
 @login_required
 def user_settings(request, user_id):
     return render(request, 'app/user_settings.html')
 
+@require_POST
+@login_required
+def user_settings_update(request, user_id):
+    return render(request, 'app/user_settings.html')
 
+@require_GET
 def register(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
     return render(request, 'app/register.html')
 
-
+@require_POST
 def register_add(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
