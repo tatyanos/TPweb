@@ -1,14 +1,5 @@
 from django.db import models
-
-
-class User(models.Model):
-    nickname = models.CharField(max_length=64)
-    email = models.EmailField(max_length=64)
-    hash = models.CharField(max_length=64)
-    img = models.ImageField(upload_to='users/%Y/%m/%d')
-
-    def __unicode__(self):
-        return self.nickname
+from django.contrib.auth.models import User
 
 
 class Question(models.Model):

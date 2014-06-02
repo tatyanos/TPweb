@@ -1,9 +1,10 @@
-import os, random
+import os
+import random
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "asks.settings")
 
 from app.models import User, Question, Answer, AnswerLike, QuestionLike
 
-User.objects.all().delete()
+User.objects.exclude(username='tatyana').delete()
 Question.objects.all().delete()
 Answer.objects.all().delete()
 AnswerLike.objects.all().delete()
@@ -16,9 +17,9 @@ def get_like_value():
 names = ['q', 'w', 'e', 'r', 't', 'y']
 users = []
 for i in xrange(10):
-    obj = User(nickname='user' + str(i) + random.choice(names),
+    obj = User(username='user' + str(i + 1),
                email='mail' + '@mail.ru',
-               hash='test')
+               password='1')
     obj.save()
     users.append(obj)
 
