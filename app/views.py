@@ -17,7 +17,7 @@ def index_page(request, page_index, internal=False):
     if page_index == 1 and not internal:
         return HttpResponsePermanentRedirect(reverse('index'))
 
-    question_list = Question.objects.order_by('-date')
+    question_list = Question.objects.order_by('-pk')
     paginator = Paginator(question_list, 10)
 
     try:
