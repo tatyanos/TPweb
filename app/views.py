@@ -82,13 +82,17 @@ def answer(request, question_id):
 
 @require_GET
 @login_required
-def user_settings(request, user_id):
+def user_settings(request):
     return render(request, 'app/user_settings.html')
 
 @require_POST
 @login_required
-def user_settings_update(request, user_id):
-    return render(request, 'app/user_settings.html')
+def user_settings_update(request):
+    if request.user.email != request.POST['email']:
+        request.user.email = request.POST['email']
+        request.user.save()
+
+    return HttpResponseRedirect(reverse('user_settings'))
 
 @require_GET
 def register(request):

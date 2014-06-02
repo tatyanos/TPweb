@@ -18,8 +18,8 @@ urlpatterns = patterns('',
     url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'app/login.html'}),
     url(r'^logout$', views.out, name='out'),
 
-    url(r'^user(?P<user_id>\d+)/$', views.user_settings, name='user_settings'),
-    url(r'^user(?P<user_id>\d+)/update$', views.user_settings_update, name='user_settings_update'),
+    url(r'^settings/$', views.user_settings, name='user_settings'),
+    url(r'^settings/update$', views.user_settings_update, name='user_settings_update'),
 
     url(r'^search$', views.search, name='search'),
 )

@@ -5,7 +5,8 @@
         <div class="col-md-6">
             <h3>Settings: {{ user.username }}</h3><br/>
 
-            <form class="form-horizontal" role="form">
+            <form method="post" action="{% url 'user_settings_update' %}" class="form-horizontal" role="form">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-2">Email</label>
 
@@ -30,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Save</button>
+                        <input type="submit" class="btn btn-default" value="Save">
                     </div>
                 </div>
             </form>
