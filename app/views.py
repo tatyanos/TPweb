@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
-from app.models import Question
+from app.models import Question, Answer
 
 
 def index(request):
@@ -15,11 +15,21 @@ def question(request, question_id):
         question_obj = Question.objects.get(pk=question_id)
     except Question.DoesNotExist:
         raise Http404
-    return render(request, 'app/detail.html', {'question': question_obj})
+
+    answers_list = Answer.objects.filter(question=question_obj)
+
+    return render(request, 'app/question.html', {
+        'question': question_obj,
+        'answers_list': answers_list
+    })
 
 
 def add(request):
     return render(request, 'app/add.html')
+
+
+def answer(request, question_id):
+    return HttpResponse('"')
 
 
 def settings(request):
@@ -36,10 +46,6 @@ def search(request):
 
 def login(request):
     return render(request, 'app/login.html')
-
-
-def results(request, question_id):
-    return HttpResponse("You're looking at the results of question %s." % question_id)
 
 
 def like(request, question_id):

@@ -22,13 +22,13 @@
                         </div>
                     </div>
                     <div class="col-md-10">
-                        <a href="#">
+                        <a href="{% url 'question' question.id %}">
                             <p class="lead">
-                                <b>How to build a moon park ?</b>
+                                <b>{{ question.title }}</b>
                             </p>
                         </a>
 
-                        <p>Guys, i have trouble with a moon park. Can't find a black-jack...</p>
+                        <p>{{ question.text }}</p>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -48,35 +48,32 @@
                 <hr/>
 
                 <!-- ANSWER -->
-                <div class="row" style="padding-left: 20px">
-                    <div class="col-md-2">
-                        <img class="img-thumbnail" src="http://placehold.it/100x80" alt=""/><br/>
+                {% for answer in answers_list %}
+                    <div class="row" style="padding-left: 20px">
+                        <div class="col-md-2">
+                            <img class="img-thumbnail" src="http://placehold.it/100x80" alt=""/><br/>
 
-                        <div class="row asks-like-cont">
-                            <div class="col-md-6 center-block">
-                                <input type="number" name="q2" value="1" class="form-control" maxlength='2' size='2'
-                                       min='1' max='10'/>
+                            <div class="row asks-like-cont">
+                                <div class="col-md-6 center-block">
+                                    <input type="number" name="q2" value="1" class="form-control" maxlength='2' size='2'
+                                           min='1' max='10'/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-10">
-                        <p>Guys, i have trouble with a moon park. Can't find a black-jack...Guys, i have trouble with a
-                            moon park. Can't find a black-jack...Guys, i have trouble with a moon park. Can't find a
-                            black-jack...Guys, i have trouble with a moon park. Can't find a black-jack...Guys, i have
-                            trouble with a moon park. Can't find a black-jack...Guys, i have trouble with a moon park.
-                            Can't find a black-jack...</p>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="checkbox">
-                                    <label for="">
-                                        <input type="checkbox" name="" value="" checked/> Correct!
-                                    </label>
+                        <div class="col-md-10">
+                            <p>{{ answer.text }}</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="checkbox">
+                                        <label for="">
+                                            <input type="checkbox" name="" value="" checked/> Correct!
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
                 <!-- /ANSWER -->
                 <div class="row" style="padding-left: 20px">
                     <form action="" method="post" class="form-horizontal row" role="form">

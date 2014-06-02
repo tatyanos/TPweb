@@ -23,7 +23,7 @@ for i in xrange(10):
     users.append(obj)
 
 questions = []
-for i in xrange(10):
+for i in xrange(25):
     obj = Question(title='Question' + str(i) + random.choice(names) + '?',
                    text='text' + random.choice(names),
                    user=random.choice(users))
@@ -31,7 +31,7 @@ for i in xrange(10):
     questions.append(obj)
 
 answers = []
-for i in xrange(5):
+for i in xrange(10):
     obj = Answer(text='Answer' + str(i) + random.choice(names),
                  user=random.choice(users),
                  question=random.choice(questions))
