@@ -18,6 +18,26 @@ def detail(request, question_id):
     return render(request, 'app/detail.html', {'question': question})
 
 
+def add(request):
+    return render(request, 'app/add.html')
+
+
+def settings(request):
+    return render(request, 'app/settings.html')
+
+
+def register(request):
+    return render(request, 'app/register.html')
+
+
+def search(request):
+    return render(request, 'app/search.html')
+
+
+def login(request):
+    return render(request, 'app/login.html')
+
+
 def results(request, question_id):
     return HttpResponse("You're looking at the results of question %s." % question_id)
 
