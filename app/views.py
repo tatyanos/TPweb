@@ -27,7 +27,12 @@ def ask(request):
 
 
 def ask_add(request):
-    return render(request, 'app/ask.html')
+    question_obj = Question(
+        title=request.POST['title'],
+        text=request.POST['text'],
+        user=User.objects.get(username='tatyana'))
+    question_obj.save()
+    return HttpResponseRedirect(reverse('question', args=(question_obj.id,)))
 
 
 def answer(request, question_id):
