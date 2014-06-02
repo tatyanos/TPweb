@@ -76,8 +76,8 @@
                 {% endfor %}
                 <!-- /ANSWER -->
                 <div class="row" style="padding-left: 20px">
-                    <form action="" method="post" class="form-horizontal row" role="form">
-
+                    <form action="{% url 'answer' question.id %}" method="post" class="form-horizontal row" role="form">
+                         {% csrf_token %}
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2">Enter your answer </label>
 

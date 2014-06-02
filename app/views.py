@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import RequestContext, loader
-from app.models import Question, Answer
+from django.core.urlresolvers import reverse
+
+from app.models import Question, Answer, User
 
 
 def index(request):
@@ -11,11 +13,7 @@ def index(request):
 
 
 def question(request, question_id):
-    try:
-        question_obj = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404
-
+    question_obj = get_object_or_404(Question, pk=question_id)
     answers_list = Answer.objects.filter(question=question_obj)
 
     return render(request, 'app/question.html', {
@@ -29,7 +27,13 @@ def add(request):
 
 
 def answer(request, question_id):
-    return HttpResponse('"')
+    question_obj = get_object_or_404(Question, pk=question_id)
+    answer_obj = Answer(
+        text=request.POST['text'],
+        user=User.objects.get(username='tatyana'),
+        question=question_obj)
+    answer_obj.save()
+    return HttpResponseRedirect(reverse('question', args=(question_id,)))
 
 
 def settings(request):
