@@ -29,7 +29,7 @@
                     <img class="img-thumbnail" src="http://placehold.it/100x80" alt=""/>
                 </div>
                 <div class="col-md-10">
-                    <a href="/app/{{ question.id }}/">
+                    <a href="{% url 'question' question.id %}">
                         <p class="lead">
                             <b>{{ question.title }}</b>
                         </p>

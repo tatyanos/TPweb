@@ -10,12 +10,12 @@ def index(request):
     return render(request, 'app/index.html', context)
 
 
-def detail(request, question_id):
+def question(request, question_id):
     try:
-        question = Question.objects.get(pk=question_id)
+        question_obj = Question.objects.get(pk=question_id)
     except Question.DoesNotExist:
         raise Http404
-    return render(request, 'app/detail.html', {'question': question})
+    return render(request, 'app/detail.html', {'question': question_obj})
 
 
 def add(request):
