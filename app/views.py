@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
-from django.template import RequestContext, loader
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
 
@@ -52,11 +52,11 @@ def question(request, question_id):
         'answers_list': answers_list
     })
 
-
+@login_required
 def ask(request):
     return render(request, 'app/ask.html')
 
-
+@login_required
 def ask_add(request):
     question_obj = Question(
         title=request.POST['title'],
@@ -65,7 +65,7 @@ def ask_add(request):
     question_obj.save()
     return HttpResponseRedirect(reverse('question', args=(question_obj.id,)))
 
-
+@login_required
 def answer(request, question_id):
     question_obj = get_object_or_404(Question, pk=question_id)
     answer_obj = Answer(
