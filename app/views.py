@@ -22,8 +22,12 @@ def question(request, question_id):
     })
 
 
-def add(request):
-    return render(request, 'app/add.html')
+def ask(request):
+    return render(request, 'app/ask.html')
+
+
+def ask_add(request):
+    return render(request, 'app/ask.html')
 
 
 def answer(request, question_id):
