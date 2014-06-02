@@ -61,7 +61,7 @@ def ask_add(request):
     question_obj = Question(
         title=request.POST['title'],
         text=request.POST['text'],
-        user=User.objects.get(username='tatyana'))
+        user=request.user)
     question_obj.save()
     return HttpResponseRedirect(reverse('question', args=(question_obj.id,)))
 
@@ -70,7 +70,7 @@ def answer(request, question_id):
     question_obj = get_object_or_404(Question, pk=question_id)
     answer_obj = Answer(
         text=request.POST['text'],
-        user=User.objects.get(username='tatyana'),
+        user=request.user,
         question=question_obj)
     answer_obj.save()
     return HttpResponseRedirect(reverse('question', args=(question_id,)))
@@ -81,7 +81,21 @@ def user_settings(request, user_id):
 
 
 def register(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
     return render(request, 'app/register.html')
+
+
+def register_add(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    if request.POST['pswd1'] != request.POST['pswd2']:
+        return HttpResponseRedirect(reverse('register'))
+    User.objects.create_user(
+        request.POST['username'],
+        request.POST['email'],
+        request.POST['pswd1'])
+    return HttpResponseRedirect(reverse('django.contrib.auth.views.login'))
 
 
 def search(request):

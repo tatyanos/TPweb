@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^logout$', views.out, name='out'),
     url(r'^user(?P<user_id>\d+)$', views.user_settings, name='user_settings'),
 
-    url(r'^register$', views.register, name='register'),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^register/add$', views.register_add, name='register_add'),
     url(r'^search$', views.search, name='search'),
 )
