@@ -51,15 +51,25 @@
             <li>
               <div class="row" style="padding-top: 25px; padding-left: 10px;">
                 <div class="col-md-12">
-                  <b>Dr.Pepper</b>
+                    {% if user.is_authenticated %}
+                  <b>{{ user.username }}</b>
+                    {% endif %}
                 </div>
               </div>
               <div class="row" style="padding-left: 10px;">
                 <div class="col-md-6">
-                  <a href="">settings</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'user_settings' user.id %}">settings</a>
+                    {% else %}
+                        <a href="{% url 'register' %}">register</a>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
-                  <a href="">logout</a>
+                    {% if user.is_authenticated %}
+                  <a href="{% url 'out' %}">logout</a>
+                        {% else %}
+                  <a href="{% url 'django.contrib.auth.views.login' %}">login</a>
+                    {% endif %}
                 </div>
               </div>
             </li>

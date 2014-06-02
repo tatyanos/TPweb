@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
+from django.contrib.auth import logout
 
 from app.models import Question, Answer, User
 
@@ -75,8 +76,8 @@ def answer(request, question_id):
     return HttpResponseRedirect(reverse('question', args=(question_id,)))
 
 
-def settings(request):
-    return render(request, 'app/settings.html')
+def user_settings(request, user_id):
+    return render(request, 'app/user_settings.html')
 
 
 def register(request):
@@ -87,9 +88,10 @@ def search(request):
     return render(request, 'app/search.html')
 
 
-def login(request):
-    return render(request, 'app/login.html')
-
-
 def like(request, question_id):
     return HttpResponse("You're liking on question %s." % question_id)
+
+
+def out(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))

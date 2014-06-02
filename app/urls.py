@@ -13,11 +13,10 @@ urlpatterns = patterns('',
     url(r'^question/(?P<question_id>\d+)/answer$', views.answer, name='answer'),
     url(r'^question/(?P<question_id>\d+)/like$', views.like, name='like'),
 
+    url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'app/login.html'}),
+    url(r'^logout$', views.out, name='out'),
+    url(r'^user(?P<user_id>\d+)$', views.user_settings, name='user_settings'),
 
-    url(r'^settings$', views.settings, name='settings'),
     url(r'^register$', views.register, name='register'),
     url(r'^search$', views.search, name='search'),
-
-    url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'app/login.html'}),
-    url(r'^login$', views.login, name='login'),
 )
