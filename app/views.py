@@ -4,10 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
 from django.views.decorators.http import require_GET, require_POST
+from django.core.paginator import Paginator, EmptyPage
 
 from app.models import Question, Answer, User
 
-QUESTION_ON_PAGE = 10
 
 @require_GET
 def index_page(request, page_index, internal=False):
@@ -16,32 +16,25 @@ def index_page(request, page_index, internal=False):
         raise Http404()
     if page_index == 1 and not internal:
         return HttpResponsePermanentRedirect(reverse('index'))
-    latest_question_list = Question.objects\
-        .order_by('-date')[(page_index - 1)*QUESTION_ON_PAGE:page_index*QUESTION_ON_PAGE]
 
-    paginator = page_list(Question, page_index, QUESTION_ON_PAGE)
+    question_list = Question.objects.order_by('-date')
+    paginator = Paginator(question_list, 10)
+
+    try:
+        questions = paginator.page(page_index)
+    except EmptyPage:
+        raise Http404()
 
     context = {
-        'latest_question_list': latest_question_list,
-        'paginator': paginator,
-        'page_current': page_index,
+        'questions': questions,
     }
     return render(request, 'app/index.html', context)
+
 
 @require_GET
 def index(request):
     return index_page(request, 1, True)
 
-
-def page_list(classname, page_index, on_page):
-    page_start = page_index - 2
-    if page_start < 1:
-        page_start = 1
-    max_page = int(round(classname.objects.count() / on_page + 0.5))
-    page_end = page_start + 5
-    if page_end > max_page:
-        page_end = max_page + 1
-    return range(page_start, page_end)
 
 @require_GET
 def question(request, question_id):
@@ -53,10 +46,12 @@ def question(request, question_id):
         'answers_list': answers_list
     })
 
+
 @require_GET
 @login_required
 def ask(request):
     return render(request, 'app/ask.html')
+
 
 @require_POST
 @login_required
@@ -80,10 +75,12 @@ def answer(request, question_id):
     answer_obj.save()
     return HttpResponseRedirect(reverse('question', args=(question_id,)))
 
+
 @require_GET
 @login_required
 def user_settings(request):
     return render(request, 'app/user_settings.html')
+
 
 @require_POST
 @login_required
@@ -94,11 +91,13 @@ def user_settings_update(request):
 
     return HttpResponseRedirect(reverse('user_settings'))
 
+
 @require_GET
 def register(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
     return render(request, 'app/register.html')
+
 
 @require_POST
 def register_add(request):
