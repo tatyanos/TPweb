@@ -9,9 +9,9 @@ urlpatterns = patterns('',
     url(r'^ask/$', views.ask, name='ask'),
     url(r'^ask/add$', views.ask_add, name='ask_add'),
 
-    url(r'^question/(?P<question_id>\d+)/$', views.question, name='question'),
-    url(r'^question/(?P<question_id>\d+)/answer$', views.answer, name='answer'),
-    url(r'^question/(?P<question_id>\d+)/like$', views.like, name='like'),
+    url(r'^question(?P<question_id>\d+)/$', views.question, name='question'),
+    url(r'^question(?P<question_id>\d+)/answer$', views.answer, name='answer'),
+    url(r'^question(?P<question_id>\d+)/like$', views.like, name='like'),
 
     url(r'^register/$', views.register, name='register'),
     url(r'^register/add$', views.register_add, name='register_add'),
