@@ -1,15 +1,45 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
 
 from app.models import Question, Answer, User
 
+QUESTION_ON_PAGE = 10
+
+
+def index_page(request, page_index, internal=False):
+    page_index = int(page_index)
+    if page_index == 0:
+        raise Http404()
+    if page_index == 1 and not internal:
+        return HttpResponsePermanentRedirect(reverse('index'))
+    latest_question_list = Question.objects\
+        .order_by('-date')[(page_index - 1)*QUESTION_ON_PAGE:page_index*QUESTION_ON_PAGE]
+
+    paginator = page_list(Question, page_index, QUESTION_ON_PAGE)
+
+    context = {
+        'latest_question_list': latest_question_list,
+        'paginator': paginator,
+        'page_current': page_index,
+    }
+    return render(request, 'app/index.html', context)
+
 
 def index(request):
-    latest_question_list = Question.objects.order_by('-date')[:5]
-    context = {'latest_question_list': latest_question_list}
-    return render(request, 'app/index.html', context)
+    return index_page(request, 1, True)
+
+
+def page_list(classname, page_index, on_page):
+    page_start = page_index - 2
+    if page_start < 1:
+        page_start = 1
+    max_page = int(round(classname.objects.count() / on_page + 0.5))
+    page_end = page_start + 5
+    if page_end > max_page:
+        page_end = max_page + 1
+    return range(page_start, page_end)
 
 
 def question(request, question_id):

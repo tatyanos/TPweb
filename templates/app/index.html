@@ -1,17 +1,5 @@
 {% extends "app/base.html" %}
 
-{%  comment %}
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="/app/{{ question.id }}/">{{ question.text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No questions are available.</p>
-{% endif %}
-{% endcomment %}
-
 {% block content %}
     <div class="row">
         <div class="col-md-12">
@@ -54,19 +42,7 @@
                 </div>
             </div>
             {% endfor %}
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="pagination">
-                        <li><a href="#">&laquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                </div>
-            </div>
+            {% include 'app/paginator.html' %}
         </div>
     </div>
 {% endblock %}

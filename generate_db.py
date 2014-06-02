@@ -17,11 +17,8 @@ def get_like_value():
 names = ['q', 'w', 'e', 'r', 't', 'y']
 users = []
 for i in xrange(10):
-    obj = User(username='user' + str(i + 1),
-               email='mail' + '@mail.ru',
-               password='1')
-    obj.save()
-    users.append(obj)
+    user = User.objects.create_user('user' + str(i + 1), 'mail' + str(i + 1) + '@mail.ru', '1')
+    users.append(user)
 
 questions = []
 for i in xrange(25):
