@@ -1,59 +1,39 @@
 {% extends "app/base.html" %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10" id="content">
-                <!-- HEADER -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3>Settings: Dr.Pepper</h3><br/>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Settings: {{ user.userrname }}</h3><br/>
 
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label for="inputLogin" class="col-sm-2">Login</label>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="inputEmail" class="col-sm-2">Email</label>
 
-                                <div class="col-sm-10">
-                                    <input type="login" class="form-control" id="inputLogin" placeholder="dr_pepper">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2">Email</label>
-
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputPassword3"
-                                           placeholder="drpepper@mail.ru">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputNickname" class="col-sm-2">Nickname</label>
-
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputNickname" placeholder="Dr.Pepper">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAvatar" class="col-sm-2">Upload avatar</label>
-
-                                <div class="col-sm-10">
-                                    <img class="img-thumbnail" src="http://placehold.it/100x80" alt=""/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2"></label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" type="file" name="" value=""/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Save</button>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" class="form-control" id="inputPassword3"
+                               placeholder="email" value="{{ user.email }}">
                     </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="inputAvatar" class="col-sm-2">Upload avatar</label>
+
+                    <div class="col-sm-10">
+                        <img class="img-thumbnail" src="http://placehold.it/100x80" alt=""/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2"></label>
+
+                    <div class="col-sm-10">
+                        <input class="form-control" type="file" name="" value=""/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Save</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 

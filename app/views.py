@@ -75,7 +75,7 @@ def answer(request, question_id):
     answer_obj.save()
     return HttpResponseRedirect(reverse('question', args=(question_id,)))
 
-
+@login_required
 def user_settings(request, user_id):
     return render(request, 'app/user_settings.html')
 
