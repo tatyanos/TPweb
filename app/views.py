@@ -39,7 +39,7 @@ def index(request):
 @require_GET
 def question(request, question_id):
     question_obj = get_object_or_404(Question, pk=question_id)
-    answers_list = Answer.objects.filter(question=question_obj)
+    answers_list = question_obj.answers.all()
 
     return render(request, 'app/question.html', {
         'question': question_obj,
