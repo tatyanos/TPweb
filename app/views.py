@@ -68,11 +68,10 @@ def ask_add(request):
 @login_required
 def answer(request, question_id):
     question_obj = get_object_or_404(Question, pk=question_id)
-    answer_obj = Answer(
+    question_obj.answers.add(Answer(
         text=request.POST['text'],
-        user=request.user,
-        question=question_obj)
-    answer_obj.save()
+        user=request.user),
+    )
     return HttpResponseRedirect(reverse('question', args=(question_id,)))
 
 
