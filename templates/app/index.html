@@ -9,38 +9,39 @@
         </div>
     </div>
     <!-- /HEADER-->
-     <div class="row">
+    <div class="row">
         <div class="col-md-12 asks-q-cont">
             {% for question in questions %}
-            <div class="row">
-                <div class="col-md-2">
-                    <img class="img-thumbnail" src="http://placehold.it/100x80" alt=""/>
-                </div>
-                <div class="col-md-10">
-                    <a href="{% url 'question' question.id %}">
-                        <p class="lead">
-                            <b>{{ question.title }}</b>
-                        </p>
-                    </a>
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="img-thumbnail" src="http://placehold.it/100x80" alt=""/>
+                        {% include 'app/like.html' %}
+                    </div>
+                    <div class="col-md-10">
+                        <a href="{% url 'question' question.id %}">
+                            <p class="lead">
+                                <b>{{ question.title }}</b>
+                            </p>
+                        </a>
 
-                    <p>{{ question.text }}</p>
+                        <p>{{ question.text }}</p>
 
-                    <div class="row">
-                        <div class="col-md-2 asks-answer">
-                            answer({{ question.ans_cnt }})
-                        </div>
-                        <div class="col-md-10">
-                            Tags:
-                            <a href="#">
-                                <span class="label label-info">black-jack</span>
-                            </a>
-                            <a href="#">
-                                <span class="label label-danger">bender</span>
-                            </a>
+                        <div class="row">
+                            <div class="col-md-2 asks-answer">
+                                answer({{ question.ans_cnt }})
+                            </div>
+                            <div class="col-md-10">
+                                Tags:
+                                <a href="#">
+                                    <span class="label label-info">black-jack</span>
+                                </a>
+                                <a href="#">
+                                    <span class="label label-danger">bender</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
             {% include 'app/paginator.html' %}
         </div>
