@@ -5,3 +5,7 @@
 .asks-like-cont {
     padding-top: 5px;
 }
+
+.asks-answer {
+    font-style: italic;
+}

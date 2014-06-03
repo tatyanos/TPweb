@@ -21,12 +21,12 @@ def index_page(request, page_index, internal=False):
     paginator = Paginator(question_list, 10)
 
     try:
-        questions = paginator.page(page_index)
+        page_questions = paginator.page(page_index)
     except EmptyPage:
         raise Http404()
 
     context = {
-        'questions': questions,
+        'questions': page_questions,
     }
     return render(request, 'app/index.html', context)
 

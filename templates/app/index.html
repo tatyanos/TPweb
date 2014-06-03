@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <h3>New questions &nbsp;
-                <small><a href="#">Hot questions</a></small>
+                <small><a href="#">Host questions</a></small>
             </h3>
         </div>
     </div>
@@ -26,8 +26,8 @@
                     <p>{{ question.text }}</p>
 
                     <div class="row">
-                        <div class="col-md-2">
-                            <a href="">answer(3)</a>
+                        <div class="col-md-2 asks-answer">
+                            answer({{ question.ans_cnt }})
                         </div>
                         <div class="col-md-10">
                             Tags:

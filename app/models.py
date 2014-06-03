@@ -8,13 +8,17 @@ class Question(models.Model):
     text = models.CharField(max_length=500)
     date = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def ans_cnt(self):
+        return self.answers.count()
+
     def __unicode__(self):
         return self.title
 
 
 class Answer(models.Model):
     user = models.ForeignKey(User)
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, related_name='answers')
     text = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
 
